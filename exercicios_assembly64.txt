@@ -1,0 +1,124 @@
+# Lista de 30 Exercícios de Assembly 64-bits (NASM - Windows)
+
+### Básico e Lógico
+1. Hello World
+   Objetivo: Exibir "Hello World" no console.
+   Dica: Use WriteFile da WinAPI ou printf da MSVCRT.
+
+2. Imprimir número fixo
+   Objetivo: Mostrar o número 42 na tela.
+   Dica: Converta inteiro para string antes de imprimir.
+
+3. Somar dois números
+   Objetivo: Somar 5 + 3 e exibir o resultado.
+   Dica: Use registradores rax, rbx e add.
+
+4. Subtração simples
+   Objetivo: Calcular 10 - 4 e exibir.
+   Dica: Use sub rax, rbx.
+
+5. Multiplicação
+   Objetivo: Calcular 6 * 7.
+   Dica: Use imul.
+
+6. Divisão inteira
+   Objetivo: Calcular 20 / 3, mostrando quociente e resto.
+   Dica: idiv usa rax e rdx.
+
+7. AND lógico
+   Objetivo: Fazer 5 AND 3.
+   Dica: Use and rax, rbx.
+
+8. OR e XOR
+   Objetivo: Fazer operações 5 OR 3 e 5 XOR 3.
+   Dica: Use or e xor.
+
+9. NOT (negação bit a bit)
+   Objetivo: Aplicar not em um número.
+   Dica: not rax inverte todos os bits.
+
+10. Swap de variáveis
+    Objetivo: Trocar os valores de 10 e 20.
+    Dica: Use xchg rax, rbx.
+
+### Estruturas de Controle
+11. Comparação simples
+    Objetivo: Mostrar 1 se a > b, senão 0.
+    Dica: Use cmp e setg.
+
+12. If-Else
+    Objetivo: Verificar se número é par ou ímpar.
+    Dica: Use test rax, 1.
+
+13. Loop com contador
+    Objetivo: Somar números de 1 a 10.
+    Dica: Use loop ou dec/jnz.
+
+14. Fatorial
+    Objetivo: Calcular fatorial de n.
+    Dica: Use loop e imul.
+
+15. Sequência de Fibonacci
+    Objetivo: Mostrar primeiros 10 termos.
+    Dica: Some dois últimos valores em loop.
+
+16. Maior de dois números
+    Objetivo: Exibir o maior entre a e b.
+    Dica: cmp + salto condicional.
+
+17. Máximo de três números
+    Objetivo: Exibir o maior entre a, b e c.
+    Dica: Compare em sequência.
+
+18. Soma de array
+    Objetivo: Somar elementos de um vetor de inteiros.
+    Dica: Percorra com índice.
+
+19. Média de três números
+    Objetivo: Calcular (a+b+c)/3.
+    Dica: Use idiv.
+
+20. Bubble Sort simples
+    Objetivo: Ordenar vetor pequeno de inteiros.
+    Dica: Use dois loops aninhados.
+
+### Manipulação de Dados e Avançado
+21. Conversão para string
+    Objetivo: Converter número inteiro para string decimal.
+    Dica: Use divisões sucessivas por 10.
+
+22. Leitura do teclado
+    Objetivo: Ler caractere digitado.
+    Dica: Use ReadFile ou função da MSVCRT.
+
+23. Echo
+    Objetivo: Ler string do usuário e reimprimir.
+    Dica: Buffer + loop até \n.
+
+24. Contar vogais em string
+    Objetivo: Contar quantas vogais há em uma frase.
+    Dica: Percorra caractere por caractere.
+
+25. Inverter string
+    Objetivo: Reverter "ABC" → "CBA".
+    Dica: Troque os extremos com xchg.
+
+26. Operações com ponto flutuante
+    Objetivo: Somar dois floats.
+    Dica: Use SSE (movss, addss).
+
+27. Média de notas (float)
+    Objetivo: Calcular média de 3 floats.
+    Dica: SSE + divisão por 3.0.
+
+28. Calculadora simples
+    Objetivo: Receber 2 números e uma operação (+, -, *, /).
+    Dica: Use cmp no operador e salte para rotina.
+
+29. Conversão decimal ↔ hexadecimal
+    Objetivo: Mostrar número em decimal e em hex.
+    Dica: Use divisões por 16.
+
+30. Mini jogo: adivinhação
+    Objetivo: O programa escolhe um número, usuário tenta adivinhar.
+    Dica: Use comparação e loop até acertar.

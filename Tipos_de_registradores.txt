@@ -1,0 +1,58 @@
+TIPOS DE REGISTRADORES X86 / X86-64
+
+Tipo de Registrador       N.º de Bits       Observações importantes
+-------------------------------------------------------------------------------
+AL / AH / AX / EAX / RAX    8 / 8 / 16 / 32 / 64
+- AL  : 8 bits, parte baixa de AX
+- AH  : 8 bits, parte alta de AX
+- AX  : 16 bits, parte baixa de EAX
+- EAX : 32 bits, parte baixa de RAX
+- RAX : 64 bits, registrador principal para operações de 64 bits
+
+BL / BH / BX / EBX / RBX    8 / 8 / 16 / 32 / 64
+- BL  : 8 bits, parte baixa de BX
+- BH  : 8 bits, parte alta de BX
+- BX  : 16 bits
+- EBX : 32 bits
+- RBX : 64 bits, uso geral, preservado em chamadas de função
+
+CL / CH / CX / ECX / RCX    8 / 8 / 16 / 32 / 64
+- Usado como contador em loops e shifts
+- RCX é usado como primeiro argumento em chamadas de função no x64
+
+DL / DH / DX / EDX / RDX    8 / 8 / 16 / 32 / 64
+- Registrador de dados geral
+- RDX é usado como segundo argumento em chamadas de função no x64
+
+SIL / SI / ESI / RSI / RSI   8 / 16 / 32 / 64
+- Usado para operações de índice / string
+- RSI é usado como primeiro argumento em algumas convenções
+
+DIL / DI / EDI / RDI         8 / 16 / 32 / 64
+- Usado para operações de índice / string
+- RDI é usado como primeiro argumento em chamadas de função no Linux x64
+
+R8 - R15                     64 bits (x64)
+- Registradores adicionais em x86-64
+- Usados para passar argumentos de funções (3º, 4º, 5º, ...)
+
+SP / ESP / RSP                16 / 32 / 64
+- Stack Pointer (ponteiro da pilha)
+- RSP em 64 bits
+
+BP / EBP / RBP                16 / 32 / 64
+- Base Pointer (referência da stack frame)
+- RBP em 64 bits
+
+SI / ESI / RSI / DI / EDI / RDI
+- Índices para arrays e strings, também usados para argumentos em x64
+
+FLAGS / EFLAGS / RFLAGS      16 / 32 / 64
+- Registrador de flags (status de operações: zero, carry, overflow, etc.)
+
+Observações gerais:
+- Registradores de 8 bits: AL, AH, BL, BH, CL, CH, DL, DH
+- Registradores de 16 bits: AX, BX, CX, DX, SP, BP, SI, DI
+- Registradores de 32 bits: EAX, EBX, ECX, EDX, ESP, EBP, ESI, EDI
+- Registradores de 64 bits (x64): RAX, RBX, RCX, RDX, RSP, RBP, RSI, RDI, R8-R15
+- No x64, sobrescrever um registrador de 32 bits (EAX, EBX...) zera os 32 bits mais altos.
