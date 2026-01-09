@@ -8,7 +8,7 @@ section .data
     fmt db "%d", 0
     msg db "Fibonacci sequence up to the %d-th number:", 10, 0    
     fib db "%lld ", 0 
-    err db "Error: must be at least grater than 0", 10, 0
+    err db "Error: must be at least greater than 0", 10, 0
     newline db 10, 0
     cmd db "pause", 0
 
