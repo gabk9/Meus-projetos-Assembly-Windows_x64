@@ -6,8 +6,9 @@ extern system
 section .data
     input db "Enter a number: ", 0
     fmt db "%d", 0
-    msg db "Fibonacci sequence up to the %d-th number:", 10, 0
+    msg db "Fibonacci sequence up to the %d-th number:", 10, 0    
     fib db "%lld ", 0 
+    err db "Error: must be at least grater than 0", 10, 0
     newline db 10, 0
     cmd db "pause", 0
 
@@ -26,12 +27,16 @@ main:
     lea rdx, [rel n]
     call scanf
 
+    cmp dword [rel n], 0
+    jle less_than_0
+
     lea rcx, [rel msg]
     mov edx, [rel n]
     call printf
 
     mov eax, [rel n]
     dec eax
+
     mov [rel n], eax
 
     mov rbx, 0
@@ -57,6 +62,15 @@ main:
 
     lea rcx, [rel newline]
     call printf
+
+    jmp end
+
+less_than_0:
+    lea rcx, [rel err]
+    xor rax, rax
+    call printf
+
+end:
 
     lea rcx, [rel cmd]
     call system
