@@ -7,15 +7,13 @@ extern system
 section .data
     input db "Enter a number: ", 0x0
     fmt db "%d", 0x0
-
-    zero db "Zero", 0xA, 0x0
-    even db "Even", 0xA, 0x0
-    odd db "Odd", 0xA, 0x0
-
+    num db "%d ", 0x0 
+    newline db 10, 0
+    err db "Error: must be at least greater than 1", 0xA, 0x0
     sysPause db "pause", 0x0
 
 section .bss
-    n resd 0
+    n resd 1
 
 section .text
 main:
@@ -31,32 +29,53 @@ main:
 
     mov eax, dword [rel n]
 
-    test eax, eax
-    jz .is_zero
+    cmp eax, 1
+    jle is_less0
 
-    test eax, 1
-    jnz .is_odd
+    mov ebx, eax
 
-.is_even:
-    lea rcx, [rel even]
-    xor rax, rax
-    call printf
-    
-    jmp end
-
-.is_odd:
-    lea rcx, [rel odd]
-    xor rax, rax
+    lea rcx, [rel num]
+    mov edx, ebx
+    xor eax, eax
     call printf
 
-    jmp end
+collatz:
+    .loop:
+        cmp ebx, 1
+        je end
 
-.is_zero:
-    lea rcx, [rel zero]
+        test ebx, 1
+        jnz .is_odd
+
+    .is_even:
+        mov eax, ebx
+        xor edx, edx
+        mov ecx, 2
+        div ecx
+        mov ebx, eax
+        jmp .print
+
+    .is_odd:
+        imul ebx, ebx, 3
+        inc ebx
+
+    .print:
+        lea rcx, [rel num]
+        mov edx, ebx
+        xor eax, eax
+        call printf
+        jmp .loop
+
+        jmp end
+
+is_less0:
+    lea rcx, [rel err]
     xor rax, rax
     call printf
 
 end:
+    lea rcx, [rel newline]
+    call printf
 
     lea rcx, [rel sysPause]
     call system
