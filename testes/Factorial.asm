@@ -1,71 +1,67 @@
 global main
+
 extern printf
 extern scanf
-extern system   
+
 
 section .data
-    prompt db "Type-in a number, type 0 to exit: ", 0
-    prompt_in db "%d", 0
+    input db "Enter a number: ", 0x0
+    fmt db "%lld", 0x0
 
-    msg db "Number: %d", 10, "Factorial: %llu", 10, 0
-    zer db "The number %d is negative, please enter positive values", 10, 0
-
-    cmd db "pause", 0
-
-section .bss
-    number resq 1
+    err db "The number must be greater or equal 0", 0xA, 0xA, 0x0
+    msg db "%d factorial: %llu", 0xA, 0x0
+    num dq 0
 
 section .text
-main:
-    sub rsp, 40
+factorial:
+    mov rax, 1
+    cmp rcx, 1
+    jle .done
 
-start_loop:
-    lea rcx, [rel prompt]
+    mov rsi, 2
+
+    .loop:
+        imul rax, rsi
+        inc rsi
+        cmp rsi, rcx
+        jle .loop
+
+    .done:
+        ret
+
+main:
+    sub rsp, 0x28
+
+start:
+    lea rcx, [rel input]
+    xor rax, rax
     call printf
 
-    lea rcx, [rel prompt_in]
-    lea rdx, [rel number]
+    lea rcx, [rel fmt]
+    lea rdx, [rel num]
     call scanf
 
-    mov rax, [rel number]
-    mov r10, rax
-    mov rbx, 1
+    cmp qword [rel num], 0
+    jl .isnegative
 
-    cmp rax, 0
-    jg do_factorial
-    jz is_zero
-    jl is_negative
-
-is_negative:
-    lea rcx, [rel zer]
-    mov rdx, r10
-    call printf
-    jmp start_loop
-
-is_zero:
-    lea rcx, [rel msg]
-    mov rdx, r10
-    mov r8, rbx
-    call printf
-    jmp endif
-
-do_factorial:
-.loop:
-    imul rbx, rax
-    dec rax
-    jnz .loop
+    mov rcx, [rel num]
+    call factorial
 
     lea rcx, [rel msg]
-    mov rdx, r10
-    mov r8, rbx
-    call printf
-    jmp start_loop
-
-endif:
-    lea rcx, [rel cmd]
+    mov rdx, [rel num]
+    mov r8, rax
     xor rax, rax
-    call system
+    call printf
 
-    add rsp, 40
+    jmp end
+
+.isnegative:
+    lea rcx, [rel err]
+    xor rax, rax
+    call printf
+    jmp start
+
+end:
+    add rsp, 0x28
     xor eax, eax
     ret
